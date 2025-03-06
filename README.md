@@ -15,9 +15,7 @@ A Symfony-based command-line tool for importing CSV data into a database. This p
 1. **Clone the repository:**
 
    ```bash
-   git clone https://your-repo-url.git
-   cd your-repo-directory
-   
+   git clone git@github.com:anarzone/data-feed-cli.git
     ```
 
 2. **Install dependencies:**
@@ -26,13 +24,18 @@ A Symfony-based command-line tool for importing CSV data into a database. This p
    composer install
    ```
 
-3. **Configure Environment Variables::**
+3. **Prepare the database:**
 
    ```bash
+   php bin/console doctrine:database:create
+   php bin/console doctrine:migrations:migrate
+   ```
 
+4. **Configure Environment Variables::**
+
+   ```bash
     ### App Settings ###
     DATABASE_TYPE="mysql"   # Options: "mysql" or "mongodb"
-    CSV_FILE_PATH="%kernel.project_dir%/feed.csv"
     
     ### MySQL Connection (Doctrine ORM) ###
     DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=8.0"
@@ -41,3 +44,14 @@ A Symfony-based command-line tool for importing CSV data into a database. This p
     MONGODB_URL="mongodb://db_user:db_password@127.0.0.1:27017/db_name"
     ```
    
+5. **Run the application:**
+
+   ```bash
+   symfony server:start -d
+   ```
+
+6. **Run the tests:**
+
+   ```bash
+    php bin/phpunit
+    ```

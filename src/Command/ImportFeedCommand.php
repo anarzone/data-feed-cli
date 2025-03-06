@@ -23,6 +23,7 @@ class ImportFeedCommand extends Command implements LoggerAwareInterface
     public function __construct(
         private readonly StorageFactory   $storageFactory,
         private readonly CSVImportService $csvImportService,
+        private readonly string           $csvFilePath,
     )
     {
         parent::__construct();
@@ -50,7 +51,7 @@ class ImportFeedCommand extends Command implements LoggerAwareInterface
         $this->csvImportService->setStorage($storage);
 
         // Retrieve CSV file path from environment variables or use default.
-        $csvFilePath = $_ENV['CSV_FILE_PATH'] ?? __DIR__ . '/../../dataset/feed.csv';
+        $csvFilePath = $this->csvFilePath ?? __DIR__ . '/../../dataset/feed.csv';
 
         if ($this->csvImportService->import($csvFilePath)) {
             $output->writeln('Data imported successfully.');
