@@ -5,20 +5,17 @@ namespace App\Service;
 
 use App\Dto\ProductDto;
 use App\Storage\ProductStorageInterface;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CSVImportService implements LoggerAwareInterface
+class CSVImportService
 {
-
-    use LoggerAwareTrait;
-
     private ProductStorageInterface $storage;
 
     public function __construct(
         private readonly ValidatorInterface $validator,
+        private readonly LoggerInterface $logger
     )
     {
     }
